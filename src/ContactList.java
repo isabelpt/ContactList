@@ -42,7 +42,7 @@ public class ContactList
         Scanner s = new Scanner(System.in);
         System.out.println("Select a type of contact to add:");
         System.out.println("1. Student \n2. Family Member");
-        // Get int
+        int personType = s.nextInt();
         System.out.println("Please fill in the following information:");
         System.out.println("First Name:");
         String fName = s.nextLine();
@@ -50,7 +50,15 @@ public class ContactList
         String lName = s.nextLine();
         System.out.println("Phone Number:");
         String pNum = s.nextLine();
-        if
+        if (personType == 1) {
+            System.out.println("Grade: ");
+            int grade = s.nextInt();
+            contacts.add(new Student(fName, lName, pNum, grade));
+        } else if (personType == 2) {
+            System.out.println("Relation: ");
+            String relation = s.nextLine();
+            contacts.add(new FamilyMember(fName, lName, pNum, relation));
+        }
     }
 
     /**
@@ -58,6 +66,9 @@ public class ContactList
      */
     public void printContacts() {
         // TODO: Complete the printContacts method
+        for (Person p : contacts) {
+            System.out.println(p);
+        }
     }
 
     /**
@@ -67,19 +78,54 @@ public class ContactList
      */
     public void sort(int sortBy) {
         // TODO: Complete the sort method
+//        if (sortBy == 0) {
+//
+//        } else if (sortBy == 1) {
+//
+//        } else {
+//            for (int pass = 1; pass < contacts.size(); pass++) {
+//                for (int comp = 0; comp < contacts.size() - pass; comp++) {
+//                    if (contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
+//                        contacts.add(comp + 1, contacts.remove(comp));
+//                    }
+//                }
+//            }
+//        }
+            for (int pass = 1; pass < contacts.size(); pass++) {
+                for (int comp = 0; comp < contacts.size() - pass; comp++) {
+                    if (contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
+                        contacts.add(comp + 1, contacts.remove(comp));
+                    }
+                }
+            }
+        }
     }
 
     // TODO: Write searchByFirstName
+    public Person searchByFirstName(String firstName) {
+
+    }
 
     // TODO: Write searchByLastName
+    public Person searchByLastName(String lastName) {
+
+    }
 
     // TODO: Write searchByPhoneNumber
+    public Person searchByPhoneNumber(String phoneNumber) {
+
+    }
 
     /**
      * Lists just the Student objects in the Contact List
      */
     public void listStudents() {
         // TODO: Complete the listStudents method
+        for (Person p : contacts) {
+            if (p instanceof  Student) {
+                System.out.println(p);
+            }
+        }
     }
 
     /**
