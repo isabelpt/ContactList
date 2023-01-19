@@ -84,14 +84,14 @@ public class ContactList
             for (int pass = 1; pass < contacts.size(); pass++) {
                 for (int comp = 0; comp < contacts.size() - pass; comp++) {
                     // alternatively store these statements as booleans and they that at least one of them is try and then add them
-                    if (sortBy == 0 && contacts.get(comp).getFirstName().compareTo(contacts.get(comp + 1).getFirstName()) == 1)
+                    if (sortBy == 0 && contacts.get(comp).getFirstName().compareTo(contacts.get(comp + 1).getFirstName()) > 0)
                     {
                         //contacts.add(comp + 1, contacts.remove(comp));
                         Collections.swap(contacts, comp, comp + 1);
-                    } else if (sortBy == 1 && contacts.get(comp).getLastName().compareTo(contacts.get(comp + 1).getFirstName()) == 1) {
+                    } else if (sortBy == 1 && contacts.get(comp).getLastName().compareTo(contacts.get(comp + 1).getLastName()) > 0) {
                         //contacts.add(comp + 1, contacts.remove(comp));
                         Collections.swap(contacts, comp, comp + 1);
-                    } else if (sortBy == 2 && contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
+                    } else if (sortBy == 2 && contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) > 0) {
                         // If this doesn't work just use the swap method
                         //contacts.add(comp + 1, contacts.remove(comp));
                         Collections.swap(contacts, comp, comp + 1);
@@ -109,7 +109,7 @@ public class ContactList
             int mid = min + (max - min) / 2;
             if (contacts.get(mid).getFirstName().compareTo(firstName) == 0) {
                 return contacts.get(mid);
-            } else if (contacts.get(mid).getFirstName().compareTo(firstName) == 1) {
+            } else if (contacts.get(mid).getFirstName().compareTo(firstName) > 0) {
                 min = mid + 1;
             } else {
                 max = mid - 1;
@@ -172,11 +172,14 @@ public class ContactList
         Scanner s = new Scanner(System.in);
         System.out.println("Welcome to your Contacts List");
         System.out.println("Please pick from the following menu options");
-
+        printMenuOptions();
+        contacts.add(new Student("Isabel", "Prado", "929", 11));
+        contacts.add(new FamilyMember("Scott", "Tucker", "646", "dad"));
+        contacts.add(new FamilyMember("Nanci", "Prado", "917", "mom"));
+        contacts.add(new Student("Taylor", "Tam", "650", 11));
         // TODO: Complete the run method
         boolean keepGoing = true;
         while(keepGoing) {
-            printMenuOptions();
             int choice = s.nextInt();
             s.nextLine();
             if (choice == 0) {
@@ -185,13 +188,13 @@ public class ContactList
                 addContact();
             } else if (choice == 2) {
                 sort(0);
-                listStudents();
+                printContacts();
             } else if (choice == 3) {
                 sort(1);
-                listStudents();
+                printContacts();
             } else if (choice == 4) {
                 sort(2);
-                listStudents();
+                printContacts();
             } else if (choice == 5) {
                 listStudents();
             } else if (choice == 6) {
@@ -222,6 +225,7 @@ public class ContactList
                     System.out.println(p);
                 }
             }
+            System.out.println("Next move:");
         }
     }
 
