@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -43,6 +44,7 @@ public class ContactList
         System.out.println("Select a type of contact to add:");
         System.out.println("1. Student \n2. Family Member");
         int personType = s.nextInt();
+        s.nextLine();
         System.out.println("Please fill in the following information:");
         System.out.println("First Name:");
         String fName = s.nextLine();
@@ -53,6 +55,7 @@ public class ContactList
         if (personType == 1) {
             System.out.println("Grade: ");
             int grade = s.nextInt();
+            s.nextLine();
             contacts.add(new Student(fName, lName, pNum, grade));
         } else if (personType == 2) {
             System.out.println("Relation: ");
@@ -83,16 +86,18 @@ public class ContactList
                     // alternatively store these statements as booleans and they that at least one of them is try and then add them
                     if (sortBy == 0 && contacts.get(comp).getFirstName().compareTo(contacts.get(comp + 1).getFirstName()) == 1)
                     {
-                        contacts.add(comp + 1, contacts.remove(comp));
+                        //contacts.add(comp + 1, contacts.remove(comp));
+                        Collections.swap(contacts, comp, comp + 1);
                     } else if (sortBy == 1 && contacts.get(comp).getLastName().compareTo(contacts.get(comp + 1).getFirstName()) == 1) {
-                        contacts.add(comp + 1, contacts.remove(comp));
-                    } else-if (sortBy == 2 && contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
+                        //contacts.add(comp + 1, contacts.remove(comp));
+                        Collections.swap(contacts, comp, comp + 1);
+                    } else if (sortBy == 2 && contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
                         // If this doesn't work just use the swap method
-                        contacts.add(comp + 1, contacts.remove(comp));
+                        //contacts.add(comp + 1, contacts.remove(comp));
+                        Collections.swap(contacts, comp, comp + 1);
                     }
                 }
             }
-        }
     }
 
     // TODO: Write searchByFirstName
@@ -164,11 +169,60 @@ public class ContactList
      * until the user exits
      */
     public void run() {
+        Scanner s = new Scanner(System.in);
         System.out.println("Welcome to your Contacts List");
         System.out.println("Please pick from the following menu options");
-        printMenuOptions();
 
         // TODO: Complete the run method
+        boolean keepGoing = true;
+        while(keepGoing) {
+            printMenuOptions();
+            int choice = s.nextInt();
+            s.nextLine();
+            if (choice == 0) {
+                keepGoing = false;
+            } else if (choice == 1) {
+                addContact();
+            } else if (choice == 2) {
+                sort(0);
+                listStudents();
+            } else if (choice == 3) {
+                sort(1);
+                listStudents();
+            } else if (choice == 4) {
+                sort(2);
+                listStudents();
+            } else if (choice == 5) {
+                listStudents();
+            } else if (choice == 6) {
+                System.out.println("Enter a name:");
+                String name = s.nextLine();
+                Person p = searchByFirstName(name);
+                if (p == null) {
+                    System.out.println(name + " is not in the list.");
+                } else {
+                    System.out.println(p);
+                }
+            } else if (choice == 7) {
+                System.out.println("Enter a name:");
+                String name = s.nextLine();
+                Person p = searchByFirstName(name);
+                if (p == null) {
+                    System.out.println(name + " is not in the list.");
+                } else {
+                    System.out.println(p);
+                }
+            } else if (choice == 8) {
+                System.out.println("Enter a phone number:");
+                String number = s.nextLine();
+                Person p = searchByPhoneNumber(number);
+                if (p == null) {
+                    System.out.println(number + " is not in the list.");
+                } else {
+                    System.out.println(p);
+                }
+            }
+        }
     }
 
 
