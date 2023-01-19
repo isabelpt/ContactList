@@ -78,22 +78,16 @@ public class ContactList
      */
     public void sort(int sortBy) {
         // TODO: Complete the sort method
-//        if (sortBy == 0) {
-//
-//        } else if (sortBy == 1) {
-//
-//        } else {
-//            for (int pass = 1; pass < contacts.size(); pass++) {
-//                for (int comp = 0; comp < contacts.size() - pass; comp++) {
-//                    if (contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
-//                        contacts.add(comp + 1, contacts.remove(comp));
-//                    }
-//                }
-//            }
-//        }
             for (int pass = 1; pass < contacts.size(); pass++) {
                 for (int comp = 0; comp < contacts.size() - pass; comp++) {
-                    if (contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
+                    // alternatively store these statements as booleans and they that at least one of them is try and then add them
+                    if (sortBy == 0 && contacts.get(comp).getFirstName().compareTo(contacts.get(comp + 1).getFirstName()) == 1)
+                    {
+                        contacts.add(comp + 1, contacts.remove(comp));
+                    } else if (sortBy == 1 && contacts.get(comp).getLastName().compareTo(contacts.get(comp + 1).getFirstName()) == 1) {
+                        contacts.add(comp + 1, contacts.remove(comp));
+                    } else-if (sortBy == 2 && contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) == 1) {
+                        // If this doesn't work just use the swap method
                         contacts.add(comp + 1, contacts.remove(comp));
                     }
                 }
@@ -103,17 +97,54 @@ public class ContactList
 
     // TODO: Write searchByFirstName
     public Person searchByFirstName(String firstName) {
-
+        // Binary search
+        int min = 0;
+        int max = contacts.size() - 1;
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
+            if (contacts.get(mid).getFirstName().compareTo(firstName) == 0) {
+                return contacts.get(mid);
+            } else if (contacts.get(mid).getFirstName().compareTo(firstName) == 1) {
+                min = mid + 1;
+            } else {
+                max = mid - 1;
+            }
+        }
+        return null;
     }
 
     // TODO: Write searchByLastName
     public Person searchByLastName(String lastName) {
-
+        int min = 0;
+        int max = contacts.size() - 1;
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
+            if (contacts.get(mid).getFirstName().compareTo(lastName) == 0) {
+                return contacts.get(mid);
+            } else if (contacts.get(mid).getFirstName().compareTo(lastName) == 1) {
+                min = mid + 1;
+            } else {
+                max = mid - 1;
+            }
+        }
+        return null;
     }
 
     // TODO: Write searchByPhoneNumber
     public Person searchByPhoneNumber(String phoneNumber) {
-
+        int min = 0;
+        int max = contacts.size() - 1;
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
+            if (contacts.get(mid).getFirstName().compareTo(phoneNumber) == 0) {
+                return contacts.get(mid);
+            } else if (contacts.get(mid).getFirstName().compareTo(phoneNumber) == 1) {
+                min = mid + 1;
+            } else {
+                max = mid - 1;
+            }
+        }
+        return null;
     }
 
     /**
@@ -122,7 +153,7 @@ public class ContactList
     public void listStudents() {
         // TODO: Complete the listStudents method
         for (Person p : contacts) {
-            if (p instanceof  Student) {
+            if (p instanceof Student) {
                 System.out.println(p);
             }
         }
